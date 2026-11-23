@@ -1,5 +1,6 @@
 import { units, type Unit } from './catalog';
 import dailyPool from './daily-pool.json';
+import expandedSchedule from './daily-schedule-v2.json';
 
 export const MAX_TURNS = 5;
 export const EPOCH = Date.UTC(2026, 10, 23);
@@ -12,10 +13,14 @@ export const puzzleNumber = (date: string) => Math.floor((Date.parse(date) - EPO
 export const normalize = (text: string) => text.normalize('NFKD').toLowerCase().replace(/[\u0300-\u036f]/g, '').replace(/[^\p{L}\p{N}]/gu, '');
 
 export function dailyUnit(date: string): Unit {
-  const day = puzzleNumber(date) - 1;
-  const index = ((day % dailyPool.length) + dailyPool.length) % dailyPool.length;
-  // Frozen shuffled cycle. Never reorder the pool after launch.
-  return byId.get(dailyPool[index])!;
+  const timestamp = Date.parse(date);
+  const activation = Date.parse(expandedSchedule.startsOn);
+  const pool = timestamp >= activation ? expandedSchedule.pool : dailyPool;
+  const epoch = timestamp >= activation ? activation : EPOCH;
+  const day = Math.floor((timestamp - epoch) / DAY);
+  const index = ((day % pool.length) + pool.length) % pool.length;
+  // Select a version by date; existing dates and saves keep their original answer.
+  return byId.get(pool[index])!;
 }
 
 export function practiceUnit(previous?: string): Unit {

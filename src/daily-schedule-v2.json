@@ -1,0 +1,17 @@
+{
+  "startsOn": "2026-11-24",
+  "pool": [
+    "slug", "lumen", "celsius", "metre", "curie", "us-pint", "long-hundredweight", "pascal", "foot", "tonne",
+    "delisle", "watt", "ohm", "candela", "ampere", "acre", "stokes", "second", "dalton", "volt",
+    "torr", "slinch", "parsec", "becquerel", "short-hundredweight", "minute", "steradian", "grain", "short-ton", "us-fluid-ounce",
+    "joule", "us-gallon", "imperial-gallon", "fortnight", "ounce", "smoot", "egyptian-cubit", "bar", "us-bushel", "coulomb",
+    "knot", "weber", "verst", "mile", "nautical-mile", "long-ton", "poundal", "pennyweight", "astronomical-unit", "apothecaries-dram",
+    "fathom", "carat", "stilb", "hectare", "newton", "barye", "imperial-pint", "siemens", "radiation-rad", "hour",
+    "pood", "litre", "barn", "imperial-bushel", "electronvolt", "rod", "phot", "light-year", "oersted", "degree",
+    "imperial-fluid-ounce", "darcy", "katal", "rankine", "gal", "hertz", "lux", "maxwell", "gray", "pound-force",
+    "day", "henry", "gauss", "avoirdupois-dram", "poise", "rem", "toise", "erg", "debye", "byte",
+    "dyne", "english-ell", "arshin", "scruple", "psi", "horsepower", "roentgen", "radian", "inch", "yard",
+    "calorie", "kelvin", "angstrom", "atmosphere", "pound", "stone", "furlong", "kilogram", "troy-ounce", "sievert",
+    "farad", "chain", "reaumur", "foot-pound", "bit", "hand", "tesla", "fahrenheit", "mole", "btu"
+  ]
+}

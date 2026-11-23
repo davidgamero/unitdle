@@ -1,3 +1,5 @@
+import { extendedUnits } from './extended-units';
+
 export type Unit = {
   id: string;
   name: string;
@@ -112,4 +114,5 @@ const otherUnits: Unit[] = [
 export const units: Unit[] = [
   ...siUnits.map(unit => ({ ...unit, icon: siIcons[unit.id], system: 'SI', source: sources.history })),
   ...otherUnits,
+  ...extendedUnits,
 ];

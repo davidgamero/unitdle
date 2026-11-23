@@ -4,9 +4,13 @@
 
 [Play Unitdle](https://davidgamero.github.io/unitdle/)
 
-A compact beaker-lab guessing game with **70 units** across SI, imperial,
-US customary, CGS, astronomy, atomic physics, time, and digital information.
+A compact beaker-lab guessing game with **120 units** across SI, imperial,
+US customary, CGS, historical, apothecaries, astronomy, atomic physics, time,
+and digital information.
 Each unit has a small, locally bundled illustrated icon.
+
+The expanded shelf includes slug, slinch, poundal, troy ounce, furlong, poise,
+barn, Egyptian royal cubit, Réaumur, and smoot. Rankine remains included.
 
 ## Play
 
@@ -42,15 +46,18 @@ npm run test:e2e
 React, TypeScript, Vite, and Lucide. System fonts, bundled Twemoji SVG icons, and
 original beaker artwork; no runtime font/image services, backend, or API keys.
 
-- `src/catalog.ts`: curated units, variants, icon assignments, and sources.
+- `src/catalog.ts` and `src/extended-units.ts`: curated units, variants, icon assignments, and sources.
 - `public/icons/`: Twemoji artwork and license; refresh with `npx tsx scripts/fetch-icons.ts`.
 - `src/game.ts`: rules, aliases, saves, clues, sharing, and UTC scheduling.
-- `src/daily-pool.json`: frozen 70-day cycle, starting November 23, 2026.
+- `src/daily-pool.json`: original frozen 70-unit schedule.
+- `src/daily-schedule-v2.json`: expanded 120-unit cycle, active November 24, 2026 UTC.
 - `src/App.tsx`: single-column board, reference, help, and search.
 - `AGENTS.md`: project conventions.
 
-Do not reorder the frozen pool after launch: it determines existing daily answers.
-The pool repeats after 70 days. Add a future versioned schedule to expand it.
+The expanded catalog is available immediately in practice and the shelf. Daily
+puzzles use the expanded cycle from **November 24, 2026, 00:00 UTC**; prior dates
+retain their original answers. Never reorder a released pool. Future expansions
+must introduce a new schedule with a future activation date.
 
 ## GitHub Pages
 

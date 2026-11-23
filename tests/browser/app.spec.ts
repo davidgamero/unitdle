@@ -89,6 +89,26 @@ test('UTC rollover starts a fresh daily but preserves the prior save', async ({ 
   await expect(page.getByText('#002')).toBeVisible();
   await expect(page.getByText('5 tries left')).toBeVisible();
   expect(await page.evaluate(() => JSON.parse(localStorage.getItem('unitdle:v1:2026-11-23')!).turns)).toEqual([null]);
+  await page.getByRole('combobox').fill('slug');
+  await page.getByRole('combobox').press('Enter');
+  await expect(page.getByRole('heading', { name: 'Slug slug' })).toBeVisible();
+});
+
+test('new units have working icons, sources, and distinct historical variants', async ({ page }) => {
+  await page.getByRole('button', { name: 'Unit shelf', exact: true }).click();
+  const search = page.getByRole('textbox', { name: 'Find a unit' });
+  await search.fill('slug');
+  const slug = page.locator('.reference-list>a').filter({ has: page.getByText('Slug', { exact: true }) });
+  await expect(slug).toContainText('Mass · Imperial / US');
+  await expect(slug).toHaveAttribute('href', 'https://en.wikipedia.org/wiki/Slug_(unit)');
+  await expect.poll(() => slug.locator('img').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
+  await search.fill('rankine');
+  await expect(page.locator('.reference-list>a')).toHaveCount(1);
+  await expect(page.locator('.reference-list>a')).toContainText('Degree Rankine');
+  await search.fill('');
+  await page.getByRole('combobox', { name: 'Unit system' }).selectOption('Historical');
+  await expect(page.locator('.reference-list')).toContainText('Egyptian royal cubit');
+  await expect(page.locator('.reference-list')).toContainText('Degree Réaumur');
 });
 
 test('storage and clipboard failures have usable fallbacks', async ({ page }) => {

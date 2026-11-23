@@ -21,7 +21,9 @@
   case-sensitive (`s` vs `S`, `h` vs `H`); names and aliases are case-insensitive.
   Match exact whole answer words in text clues and hide them with `[hidden]`.
 - Preserve stable IDs, validated browser saves, and the frozen daily pool. Never
-  reorder `src/daily-pool.json` after launch; add future schedules explicitly.
+  reorder `src/daily-pool.json` or a released versioned pool. The 120-unit v2
+  schedule activates on 2026-11-24 UTC; prior dates use the original pool.
+  Add future schedules explicitly instead of changing existing answers.
   Daily puzzles reset at 00:00 UTC. Practice saves are independent of daily saves.
 - Suggestions support immediate tap/Enter, arrows, and Escape. Keep names visible,
   preserve focus when dialogs close, and allow large text and narrow layouts to

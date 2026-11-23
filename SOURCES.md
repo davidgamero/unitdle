@@ -67,6 +67,55 @@ exhaustive inventory of every historical unit or prefixed combination.
 - Minute, hour, day, and angular degree have ancient origins. No precise origin
   year is invented. A day here is the 86,400-second duration unit, not every civil day.
 
+## Expanded imperial and historical shelf
+
+- [NIST Handbook 44 (2026), Appendix C](https://www.nist.gov/document/2026-nist-handbook-44-appendix-c):
+  troy ounce, grain, pennyweight, apothecaries scruple/dram, avoirdupois dram,
+  hundredweights, land measures, and bushels. Troy mass is not avoirdupois mass;
+  apothecaries dram = 60 grains, versus 27.34375 grains for avoirdupois dram.
+  US bushel is a dry-volume unit. Imperial bushel = eight imperial gallons.
+- [NIST SP 811, Appendix B.8](https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b8):
+  pound-force, foot-pound force, International Table Btu, and CGS conversions.
+  Btu uses the **IT** variant, not a thermochemical or temperature-specific variant.
+- [Slug and slinch](https://en.wikipedia.org/wiki/Slug_(unit)) and
+  [poundal](https://en.wikipedia.org/wiki/Poundal): slug/slinch are masses;
+  poundal/pound-force are forces. Slug's name predates 1900; an exact invention
+  year is not claimed. Slinch is an informal name for lbf·s²/in, equal to 12 slugs.
+- [Gunter's chain](https://en.wikipedia.org/wiki/Gunter%27s_chain): 1620 introduction.
+  The catalog uses current international-foot conversions for chain, rod,
+  furlong, fathom, and acre, not US survey-foot variants. The 2023 clues refer
+  explicitly to retirement of the US survey-foot basis, not creation of the units.
+- Poise, stokes, gauss, maxwell, oersted, gal, phot, and stilb follow NIST's
+  CGS tables. Electromagnetic relations are labeled **correspondences** with SI
+  because the systems' dimensional conventions differ. Darcy is permeability;
+  debye is electric dipole moment. Both are sometimes written D, so the shelf
+  qualifies darcy as `D (permeability)` and reserves bare D for debye.
+- [NASA CGS table](https://caps.gsfc.nasa.gov/simpson/ref/gaussian.html): barye.
+- [ORAU radiation terminology history](https://orau.org/health-physics-museum/articles/selected-radiological-nuclear-terms.html):
+  curie (1910), radiation rad (1953), and barn (1942). Barn is reaction cross
+  section, not simply the physical area of a nucleus.
+- [ICRU history](https://www.icru.org/current-activities-of-icru/radiation-science-quantities-units-and-radiation-measurement):
+  roentgen (1928). [Rem history](https://en.wikipedia.org/wiki/Roentgen_equivalent_man):
+  first definition in 1947; today's conversion is 0.01 Sv. Radiation rad uses
+  the NIST-permitted alternative symbol `rd` to avoid confusion with radian `rad`;
+  rod's label is qualified as `rd (length)`.
+- [Ångström](https://en.wikipedia.org/wiki/Angstrom): 1868 solar spectrum scale.
+  Torr uses 1/760 of the standard atmosphere, not an exact equivalence to every
+  millimetre-of-mercury convention.
+- [Cubit study](https://doi.org/10.1155/2014/489757): Egyptian royal cubit around
+  0.524 m, with surviving rods differing. No universal exact cubit is asserted.
+- [English ell](https://en.wikipedia.org/wiki/Ell), [Paris toise](https://www.sizes.com/units/toise.htm),
+  [verst](https://en.wikipedia.org/wiki/Verst), [arshin](https://en.wikipedia.org/wiki/Arshin),
+  and [pood](https://en.wikipedia.org/wiki/Pood): the named regional conventions,
+  not every unit sharing those names. Historic metric equivalents are approximate.
+- [Réaumur](https://en.wikipedia.org/wiki/R%C3%A9aumur_scale): 1730 proposal.
+  [Delisle](https://en.wikipedia.org/wiki/Delisle_scale): 1732 introduction; the
+  relation uses the later revised scale (boiling water 0, freezing water 150).
+- [Smoot](https://en.wikipedia.org/wiki/Smoot): 1958 MIT bridge measurement,
+  nominally 5 ft 7 in. [Fortnight](https://en.wikipedia.org/wiki/Fortnight): 14 days.
+  Ancient and undated origins remain explicitly undated instead of assigning
+  arbitrary establishment years.
+
 Unit icons use unmodified [Twemoji artwork](https://github.com/jdecked/twemoji),
 Copyright Twitter and other contributors, under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 The SVGs and full license are bundled under `public/icons/`, pinned to revision
