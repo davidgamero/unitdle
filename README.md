@@ -22,6 +22,11 @@ Symbols are case-sensitive: `s` is second, `S` is siemens.
 
 - Daily puzzles reset at **00:00 UTC**; practice is unlimited.
 - Progress saves in this browser. Clipboard-denied browsers get copyable text.
+- The Bongus Games hub can read only today's win/loss/in-progress status and turn
+  count through an origin-checked bridge. Answers, guesses, practice progress,
+  and browser identity never leave Unitdle. Blocked storage shows unknown.
+  Click the hub badge to check from a first-party popup if embedded storage is
+  partitioned by browser privacy settings.
 - Shares use 🟨 wrong · ⬜ skipped · 🟩 solved, with no answer spoilers.
 - The book button opens the unit shelf, with system filters and source links.
 

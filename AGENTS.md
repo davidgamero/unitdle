@@ -24,7 +24,13 @@
   reorder `src/daily-pool.json` or a released versioned pool. The 120-unit v2
   schedule activates on 2026-11-24 UTC; prior dates use the original pool.
   Add future schedules explicitly instead of changing existing answers.
-  Daily puzzles reset at 00:00 UTC. Practice saves are independent of daily saves.
+   Daily puzzles reset at 00:00 UTC. Practice saves are independent of daily saves.
+- `public/daily-progress.html` serves only today's status and turn count to the
+  exact Games hub origin via nonce/source-checked messages. Never expose the
+  target unit, guesses, practice state, or identity; unavailable storage is
+  unknown rather than new. Keep the GitHub Pages `/unitdle/` subpath intact.
+  Permit a user-clicked first-party popup to answer the same restricted request
+  when the embedded bridge cannot read an unpartitioned save.
 - Suggestions support immediate tap/Enter, arrows, and Escape. Keep names visible,
   preserve focus when dialogs close, and allow large text and narrow layouts to
   reflow. Respect reduced motion and distinguish outcomes by symbols and color.

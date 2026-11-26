@@ -1,8 +1,52 @@
 import { test, expect } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+
+const bridgeHtml = readFileSync(new URL('../../public/daily-progress.html', import.meta.url), 'utf8');
 
 test.beforeEach(async ({ page }) => {
   await page.clock.install({ time: new Date('2026-11-23T12:00:00Z') });
   await page.goto('./');
+});
+
+test('daily bridge returns a spoiler-free result, with a first-party retry when storage is partitioned', async ({ page }, info) => {
+  await page.context().route('https://davidgamero.github.io/unitdle/daily-progress.html', route => route.fulfill({ contentType: 'text/html', body: bridgeHtml }));
+  await page.route('https://games.bingusindustries.com/', route => route.fulfill({ contentType: 'text/html', body: '<!doctype html><title>Hub</title>' }));
+  await page.goto('https://davidgamero.github.io/unitdle/daily-progress.html');
+  await page.evaluate(() => localStorage.setItem(`unitdle:v1:${new Date().toISOString().slice(0, 10)}`, JSON.stringify({ target: 'pascal', turns: [null, 'newton', 'pascal'] })));
+  await page.goto('https://games.bingusindustries.com/');
+  const result = await page.evaluate(() => new Promise<unknown>(resolve => {
+    const frame = document.createElement('iframe');
+    const nonce = 'request-id-123456789';
+    window.addEventListener('message', event => {
+      if (event.origin !== 'https://davidgamero.github.io' || event.source !== frame.contentWindow) return;
+      if (event.data?.type === 'bongus-daily-ready') frame.contentWindow?.postMessage({ type: 'bongus-daily-request', nonce }, event.origin);
+      if (event.data?.type === 'bongus-daily-result' && event.data.nonce === nonce) resolve(event.data);
+    });
+    frame.src = 'https://davidgamero.github.io/unitdle/daily-progress.html';
+    document.body.append(frame);
+  }));
+  expect(result).toMatchObject(info.project.name === 'safari' ? { game: 'unitdle', status: 'unknown', attempts: 0 } : { game: 'unitdle', status: 'won', attempts: 3 });
+  expect(JSON.stringify(result)).not.toContain('pascal');
+  expect(JSON.stringify(result)).not.toContain('newton');
+  await page.evaluate(() => {
+    const verify = document.createElement('button');
+    verify.textContent = 'Verify progress';
+    verify.onclick = () => {
+      const popup = window.open('about:blank', 'daily-progress-check', 'width=420,height=240');
+      if (!popup) throw new Error('Popup blocked');
+      const nonce = 'popup-request-123456789';
+      window.addEventListener('message', event => {
+        if (event.origin !== 'https://davidgamero.github.io' || event.source !== popup) return;
+        if (event.data?.type === 'bongus-daily-ready') popup.postMessage({ type: 'bongus-daily-request', nonce }, event.origin);
+        if (event.data?.type === 'bongus-daily-result' && event.data.nonce === nonce) (window as Window & { verifiedProgress?: unknown }).verifiedProgress = event.data;
+      });
+      popup.location.href = 'https://davidgamero.github.io/unitdle/daily-progress.html';
+    };
+    document.body.append(verify);
+  });
+  await page.getByRole('button', { name: 'Verify progress' }).click();
+  const verified = await page.waitForFunction(() => (window as Window & { verifiedProgress?: unknown }).verifiedProgress);
+  expect(await verified.jsonValue()).toMatchObject({ game: 'unitdle', status: 'won', attempts: 3 });
 });
 
 test('guess, reveal a dated clue, win, and restore under a Pages subpath', async ({ page }) => {

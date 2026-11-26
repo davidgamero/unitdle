@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8"><title>Daily progress</title></head>
+  <body>
+    <script>
+      // Share only today's status and turn count, never the unit or individual guesses.
+      const hub = 'https://games.bingusindustries.com';
+      const parent = window.opener || (window.parent !== window ? window.parent : null);
+      if (parent && location.hostname === 'davidgamero.github.io' && location.pathname === '/unitdle/daily-progress.html') {
+        parent.postMessage({ type: 'bongus-daily-ready' }, hub);
+        window.addEventListener('message', async event => {
+          if (event.origin !== hub || event.source !== parent || event.data?.type !== 'bongus-daily-request' || typeof event.data.nonce !== 'string' || !/^[a-zA-Z0-9-]{16,80}$/.test(event.data.nonce)) return;
+          const date = new Date().toISOString().slice(0, 10);
+          let status = 'new', attempts = 0;
+          try {
+            if (!window.opener && document.hasStorageAccess && !await document.hasStorageAccess()) throw new Error('Storage unavailable');
+            const raw = localStorage.getItem(`unitdle:v1:${date}`);
+            if (raw !== null) {
+              const round = JSON.parse(raw);
+              if (!round || typeof round.target !== 'string' || !/^[a-z0-9-]{1,80}$/.test(round.target) || !Array.isArray(round.turns) || round.turns.length > 5 || !round.turns.every(turn => turn === null || typeof turn === 'string' && /^[a-z0-9-]{1,80}$/.test(turn))) status = 'unknown';
+              else {
+                const solved = round.turns.indexOf(round.target);
+                if (solved >= 0 && solved === round.turns.length - 1) { status = 'won'; attempts = solved + 1; }
+                else if (solved >= 0) status = 'unknown';
+                else if (round.turns.length === 5) { status = 'lost'; attempts = 5; }
+                else if (round.turns.length) { status = 'in-progress'; attempts = round.turns.length; }
+              }
+            }
+          } catch { status = 'unknown'; }
+          parent.postMessage({ type: 'bongus-daily-result', nonce: event.data.nonce, game: 'unitdle', date, status, attempts }, hub);
+          if (window.opener) window.close();
+        });
+      }
+    </script>
+  </body>
+</html>
