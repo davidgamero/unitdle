@@ -35,7 +35,7 @@ test('shares only daily status and turn count, not the unit or guesses', async (
 
 test('new, in-progress, lost, invalid, and blocked saves do not claim a false win', async () => {
   for (const [round, status, attempts] of [
-    [null, 'new', 0], [{ target: 'pascal', turns: [null, 'newton'] }, 'in-progress', 2],
+    [null, 'unknown', 0], [{ target: 'pascal', turns: [null, 'newton'] }, 'in-progress', 2],
     [{ target: 'pascal', turns: [null, null, null, null, null] }, 'lost', 5],
     [{ target: 'pascal', turns: ['pascal', null] }, 'unknown', 0],
     [{ target: 'pascal', turns: ['invalid guess'] }, 'unknown', 0],
@@ -51,5 +51,7 @@ test('new, in-progress, lost, invalid, and blocked saves do not claim a false wi
   const popup = bridge({ target: 'pascal', turns: ['pascal'] }, false, undefined, false, true); await popup.request();
   assert.equal(popup.sent[1].data.status, 'won');
   assert.equal(popup.closed, true);
+  const newPopup = bridge(null, false, undefined, false, true); await newPopup.request();
+  assert.equal(newPopup.sent[1].data.status, 'new');
   assert.equal(bridge(null, false, '/another-project/daily-progress.html').sent.length, 0);
 });

@@ -15,6 +15,7 @@
           try {
             if (!window.opener && document.hasStorageAccess && !await document.hasStorageAccess()) throw new Error('Storage unavailable');
             const raw = localStorage.getItem(`unitdle:v1:${date}`);
+            if (raw === null && !window.opener) status = 'unknown';
             if (raw !== null) {
               const round = JSON.parse(raw);
               if (!round || typeof round.target !== 'string' || !/^[a-z0-9-]{1,80}$/.test(round.target) || !Array.isArray(round.turns) || round.turns.length > 5 || !round.turns.every(turn => turn === null || typeof turn === 'string' && /^[a-z0-9-]{1,80}$/.test(turn))) status = 'unknown';
